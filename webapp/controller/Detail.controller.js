@@ -42,7 +42,7 @@ sap.ui.define(
        */
       _onDetailMatched: function (oEvent) {
         // const oArgs = oEvent.getParameter("arguments");
-        // const sProductId = oArgs.product;
+        // const sProductId = oArgs.product;ㄴ
         // const sLayout = oArgs.layout;
         var sPoId = oEvent.getParameter("arguments").PoId;
         var oDataModel = this.getOwnerComponent().getModel("poListModel");
