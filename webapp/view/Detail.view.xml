@@ -66,12 +66,12 @@
 						<blocks>
 							<form:SimpleForm maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1">
 								<form:content>
-									<m:Label text="Product ID"/>
-									<m:Text text="{poItemList>ProductId}"/>
-									<m:Label text="Description"/>
-									<m:Text text="{poItemList>Description}"/>
-									<m:Label text="Supplier"/>
-									<m:Text text="{poItemList>SupplierName}"/>
+									<m:Label text="구매오더 ID"/>
+									<m:Text text="{poItemList>PoId}"/>
+									<m:Label text="구매 조직 ID"/>
+									<m:Text text="{poItemList>PurOrgId}"/>
+									<m:Label text="구매 그룹 ID"/>
+									<m:Text text="{poItemList>PurGrpId}"/>
 								</form:content>
 							</form:SimpleForm>
 						</blocks>

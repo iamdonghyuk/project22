@@ -42,7 +42,7 @@ sap.ui.define(
        */
       _onDetailMatched: function (oEvent) {
         // const oArgs = oEvent.getParameter("arguments");
-        // const sProductId = oArgs.product;ㄴ
+        // const sProductId = oArgs.product;
         // const sLayout = oArgs.layout;
         var sPoId = oEvent.getParameter("arguments").PoId;
         var oDataModel = this.getOwnerComponent().getModel("poListModel");
@@ -54,15 +54,45 @@ sap.ui.define(
         console.log("뷰 이름:", oView.getId());
 
         // 아이템 데이터를 OData로 읽어서 JSONModel(poItemList)에 세팅
+        //   oDataModel.read("/ZDCT_MM091Set", {
+        //     filters: [new Filter("PoId", FilterOperator.EQ, sPoId)],
+        //     success: function (oData) {
+        //       var oJsonModel = new JSONModel();
+        //       oJsonModel.setData({ ZDCT_MM091Set: oData.results });
+        //       oView.setModel(oJsonModel, "poItemModel");
+        //     },
+        //     error: function () {
+        //       MessageToast.show("구매오더 아이템 조회 실패");
+        //     },
+        //   }
+        // );
         oDataModel.read("/ZDCT_MM091Set", {
           filters: [new Filter("PoId", FilterOperator.EQ, sPoId)],
           success: function (oData) {
-            // 결과를 JSONModel로 변환하여 View에 세팅
-            // console.table(oData.results);
-            var oJsonModel = new JSONModel();
-            oJsonModel.setData({ ZDCT_MM091Set: oData.results });
-            // console.table(oData.results);
-            oView.setModel(oJsonModel, "poItemModel");
+            const aPoItems = oData.results;
+
+            // 1. 자재 정보도 조회
+            oDataModel.read("/ZDCT_MM010Set", {
+              success: function (oMatData) {
+                const aMatList = oMatData.results;
+
+                // 2. 자재명을 PoItem에 붙이기
+                aPoItems.forEach((item) => {
+                  const oFoundMat = aMatList.find(
+                    (mat) => mat.MatId === item.MatId
+                  );
+                  item.MatNm = oFoundMat ? oFoundMat.MatNm : "";
+                });
+
+                // 3. JSONModel로 세팅
+                const oJsonModel = new JSONModel();
+                oJsonModel.setData({ ZDCT_MM091Set: aPoItems });
+                oView.setModel(oJsonModel, "poItemModel");
+              },
+              error: function () {
+                MessageToast.show("자재 정보 조회 실패");
+              },
+            });
           },
           error: function () {
             MessageToast.show("구매오더 아이템 조회 실패");
