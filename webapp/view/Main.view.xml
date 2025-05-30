@@ -16,8 +16,12 @@
         <!-- DynamicPage Content -->
         <f:content>
         <VBox class="sapUiSmallMargin">
-            <Image src="images/Auro_colors_lacquer1.png" width="300px" alt="Auro Lacquer Image" class="sapUiSmallMarginBottom" />
-            <Table id="poHeaderTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{poListModel>/ZDCT_MM090Set}" class="sapFDynamicPageAlignContent" width="auto">
+            <Image src="images/Auro_colors_lacquer1.png" width="300px" 
+            alt="Auro Lacquer Image" class="sapUiSmallMarginBottom" />
+            
+            <Table id="poHeaderTable" mode="SingleSelectMaster" 
+            itemPress="onListItemPress" inset="false" items="{poListModel>/ZDCT_MM090Set}" 
+            class="sapFDynamicPageAlignContent" width="auto">
                 <headerToolbar>
                     <OverflowToolbar height="50%">
                         <Panel headerText="조회 조건" class="sapUiSmallMarginBottom">
