@@ -1,148 +1,153 @@
-<mvc:View displayBlock="true" controllerName="sync.dc.mm.project22.controller.Detail" height="100%"
-	xmlns="sap.uxap"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:m="sap.m"
-	xmlns:f="sap.f"
-	xmlns:form="sap.ui.layout.form">
-	<!-- <m:Page navButtonPress="onGoBack" showNavButton="true"> -->
+	<mvc:View displayBlock="true" controllerName="sync.dc.mm.project22.controller.Detail" height="100%"
+		xmlns="sap.uxap"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:m="sap.m"
+		xmlns:f="sap.f"
+		xmlns:form="sap.ui.layout.form">
+		<!-- <m:Page navButtonPress="onGoBack" showNavButton="true"> -->
 
-	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
-		<headerTitle>
-			<ObjectPageDynamicHeaderTitle>
-				<expandedHeading>
-					<m:Title text="{poItemList>Name}" wrapping="true" class="sapUiSmallMarginEnd"/>
-				</expandedHeading>
+		<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+			<headerTitle>
+				<ObjectPageDynamicHeaderTitle>
+					<expandedHeading>
+						<m:Title text="{poItemList>Name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+					</expandedHeading>
 
-				<snappedHeading>
-					<m:HBox wrap="NoWrap" alignItems="Center" class="sapUiTinyMarginEnd">
-						<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="S" displayShape="Square" class="sapUiTinyMarginEnd"/>
-						<m:VBox wrap="Wrap">
-							<m:Title text="{poItemList>Name}" wrapping="true" />
-							<m:Label text="{poItemList>ProductId}" wrapping="true" />
-						</m:VBox>
-					</m:HBox>
-				</snappedHeading>
+					<snappedHeading>
+						<m:HBox wrap="NoWrap" alignItems="Center" class="sapUiTinyMarginEnd">
+							<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="S" displayShape="Square" class="sapUiTinyMarginEnd"/>
+							<m:VBox wrap="Wrap">
+								<m:Title text="{poItemList>Name}" wrapping="true" />
+								<m:Label text="{poItemList>ProductId}" wrapping="true" />
+							</m:VBox>
+						</m:HBox>
+					</snappedHeading>
 
-				<navigationActions>
-					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
-					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
-					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
-				</navigationActions>
+					<navigationActions>
+						<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+						<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+						<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+					</navigationActions>
 
-				<actions>
-					<m:Button text="Edit" type="Emphasized" press="toggleAreaPriority"/>
-					<m:Button text="Delete" type="Transparent"/>
-					<m:Button text="Copy" type="Transparent"/>
-					<m:Button text="Toggle Footer" type="Transparent" press="onToggleFooter"/>
-					<m:Button icon="sap-icon://action" type="Transparent"/>
-				</actions>
+					<actions>
+						<m:Button text="Edit" type="Emphasized" press="toggleAreaPriority"/>
+						<m:Button text="Delete" type="Transparent"/>
+						<m:Button text="Copy" type="Transparent"/>
+						<m:Button text="Toggle Footer" type="Transparent" press="onToggleFooter"/>
+						<m:Button icon="sap-icon://action" type="Transparent"/>
+					</actions>
 
-			</ObjectPageDynamicHeaderTitle>
-		</headerTitle>
+				</ObjectPageDynamicHeaderTitle>
+			</headerTitle>
 
-		<headerContent>
-			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
-				<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
-				</m:Avatar>
-				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Main Category"/>
-					<m:Text text="{poItemList>MainCategory}"/>
-				</m:VBox>
-				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Subcategory"/>
-					<m:Text text="{poItemList>Category}"/>
-				</m:VBox>
-				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Price"/>
-					<m:ObjectNumber number="{poItemList>CurrencyCode} {poItemList>Price}" emphasized="false"/>
-				</m:VBox>
-			</m:FlexBox>
-		</headerContent>
+			<headerContent>
+				<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+					<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
+					</m:Avatar>
+					<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+						<m:Label text="Main Category"/>
+						<m:Text text="{poItemList>MainCategory}"/>
+					</m:VBox>
+					<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+						<m:Label text="Subcategory"/>
+						<m:Text text="{poItemList>Category}"/>
+					</m:VBox>
+					<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+						<m:Label text="Price"/>
+						<m:ObjectNumber number="{poItemList>CurrencyCode} {poItemList>Price}" emphasized="false"/>
+					</m:VBox>
+				</m:FlexBox>
+			</headerContent>
 
-		<sections>
-			<ObjectPageSection title="General Information">
-				<subSections>
-					<ObjectPageSubSection>
-						<blocks>
-							<form:SimpleForm maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1">
-								<form:content>
-									<m:Label text="구매오더 ID"/>
-									<m:Text text="{poItemList>PoId}"/>
-									<m:Label text="구매 조직 ID"/>
-									<m:Text text="{poItemList>PurOrgId}"/>
-									<m:Label text="구매 그룹 ID"/>
-									<m:Text text="{poItemList>PurGrpId}"/>
-								</form:content>
-							</form:SimpleForm>
-						</blocks>
-					</ObjectPageSubSection>
-				</subSections>
-			</ObjectPageSection>
+			<sections>
+				<ObjectPageSection title="General Information">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<form:SimpleForm maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1">
+									<form:content>
+										<m:Label text="구매오더 ID" />
+										<m:Text text="{poItemList>PoId}" />
 
-			<ObjectPageSection title="구매오더 품목">
-				<subSections>
-					<ObjectPageSubSection>
-						<blocks>
-							<m:Table id="purchaseOrderTable" items="{poItemModel>/ZDCT_MM091Set}">
-								<m:columns>
-									<m:Column>
-										<m:Text text="PoId"/>
-									</m:Column>
-									<!-- <m:Column>
-										<m:Text text="PrId"/>
-									</m:Column> -->
-									<m:Column>
-										<m:Text text="MatId"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="PlantId"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="LocaId"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="InfoRecord"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="Qty"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="OrderUnit"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="NetPrice"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="PriceBase"/>
-									</m:Column>
-									<m:Column>
-										<m:Text text="DeliveryDate"/>
-									</m:Column>
-								</m:columns>
-								<m:items>
-									<m:ColumnListItem>
-										<m:cells>
-											<m:Text text="{poItemModel>PoId}" />
-											<!-- <m:Text text="{poItemModel>PoItem}" /> -->
-											<m:Text text="{poItemModel>PrId}" />
-											<m:Text text="{poItemModel>MatId}" />
-											<m:Text text="{poItemModel>PlantId}" />
-											<m:Text text="{poItemModel>LocaId}" />
-											<m:Text text="{poItemModel>InfoRecord}" />
-											<m:Text text="{poItemModel>Qty}" />
-											<m:Text text="{poItemModel>OrderUnit}" />
-											<m:Text text="{poItemModel>NetPrice}" />
-											<m:Text text="{poItemModel>PriceBase}" />
-											<m:Text text="{poItemModel>DeliveryDate}" />
-										</m:cells>
-									</m:ColumnListItem>
-								</m:items>
-							</m:Table>
-						</blocks>
-					</ObjectPageSubSection>
-				</subSections>
-			</ObjectPageSection>
-		</sections>
-	</ObjectPageLayout>
-	<!-- </m:Page> -->
-</mvc:View>
+										<m:Label text="구매 조직 이름" />
+										<m:Text text="{poItemList>PurOrgNm}" />
+
+										<m:Label text="구매 그룹 이름" />
+										<m:Text text="{poItemList>PurGrpNm}" />
+									</form:content>
+								</form:SimpleForm>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+
+				<ObjectPageSection title="구매오더 품목">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<m:Table id="purchaseOrderTable" items="{poItemModel>/ZDCT_MM091Set}">
+									<m:columns>
+										<!-- <m:Column>
+											<m:Text text="PoId"/>
+										</m:Column> -->
+										<m:Column>
+											<m:Text text="자재코드"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="자재이름"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="플랜트ID"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="플랜트 이름"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="저장위치ID"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="저장위치 이름"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="수량량"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="단위"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="단가"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="단가 기준 수량"/>
+										</m:Column>
+										<m:Column>
+											<m:Text text="납기요청일"/>
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem>
+											<m:cells>
+												<m:Text text="{poItemModel>MatId}" />
+												<m:Text text="{poItemModel>MatNm}" />
+						
+												<m:Text text="{poItemModel>PlantId}" />
+												<m:Text text="{poListModel>PlantNm}" /> 
+												<m:Text text="{poItemModel>LocaId}" />
+										
+												<m:Text text="{poItemModel>Qty}" />
+												<m:Text text="{poItemModel>OrderUnit}" />
+												<m:Text text="{poItemModel>NetPrice}" />
+												<m:Text text="{poItemModel>PriceBaseQty}" />
+												<m:Text text="{poItemModel>DelivDate}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+			</sections>
+		</ObjectPageLayout>
+		<!-- </m:Page> -->
+	</mvc:View>

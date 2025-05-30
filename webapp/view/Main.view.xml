@@ -15,9 +15,9 @@
 
         <!-- DynamicPage Content -->
         <f:content>
-            <Table id="poHeaderTable" mode="SingleSelectMaster" 
-            itemPress="onListItemPress" inset="false" 
-            items="{poListModel>/ZDCT_MM090Set}" class="sapFDynamicPageAlignContent" width="auto">
+        <VBox class="sapUiSmallMargin">
+            <Image src="images/Auro_colors_lacquer1.png" width="300px" alt="Auro Lacquer Image" class="sapUiSmallMarginBottom" />
+            <Table id="poHeaderTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{poListModel>/ZDCT_MM090Set}" class="sapFDynamicPageAlignContent" width="auto">
                 <headerToolbar>
                     <OverflowToolbar height="50%">
                         <Panel headerText="조회 조건" class="sapUiSmallMarginBottom">
@@ -25,25 +25,29 @@
                                 <!-- 공급업체 ID -->
                                 <VBox class="sapUiTinyMarginEnd">
                                     <Label text="공급업체 ID" />
-                                    <Input value="{VendId}" width="200px" />
+                                    <Input id = "VendId" width="200px" editable="true"/>
                                 </VBox>
 
                                 <!-- 공급업체 이름 -->
                                 <VBox class="sapUiTinyMarginEnd">
                                     <Label text="공급업체 이름" />
-                                    <Input value="{VendNm}" width="200px" />
+                                    <Input id = "VendNm" width="200px"  />
                                 </VBox>
 
                                 <!-- 구매오더 번호 -->
                                 <VBox class="sapUiTinyMarginEnd">
                                     <Label text="구매오더 번호" />
-                                    <Input value="{PoId}" width="200px" />
+                                    <Input id = "PoId" width="200px" />
                                 </VBox>
 
                                 <!-- 구매오더 생성일 -->
                                 <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="구매오더 생성 시작일" />
+                                    <DatePicker id = "PoDateS" width="200px" />
+                                </VBox>
+                                <VBox class="sapUiTinyMarginEnd">
                                     <Label text="구매오더 생성일" />
-                                    <DatePicker value="{PoDate}" width="200px" />
+                                    <DatePicker id = "PoDateE" width="200px" />
                                 </VBox>
 
                                 <!-- Spacer -->
@@ -61,9 +65,7 @@
                                     <Label text=" " />
                                     <Button icon="sap-icon://sort" type="Transparent" press="onSort" />
                                 </VBox>
-
                             </HBox>
-
                         </Panel>
 
                     </OverflowToolbar>
@@ -80,6 +82,9 @@
                     </Column>
                     <Column>
                         <Text text="공급업체 코드" />
+                    </Column>
+                    <Column>
+                        <Text text="공급업체 이름" />
                     </Column>
                     <Column>
                         <Text text="구매조직 코드" />
@@ -104,6 +109,7 @@
                             <Text text="{poListModel>PoTy}" />
                             <Text text="{poListModel>CompCode}" />
                             <Text text="{poListModel>VendId}" />
+                            <Text text="{poListModel>VendNm}" />
                             <Text text="{poListModel>PurOrgId}" />
                             <Text text="{poListModel>PurGrpId}" />
                             <Text text="{poListModel>PoDate}" />
@@ -113,6 +119,7 @@
                     </ColumnListItem>
                 </items>
             </Table>
+            </VBox>
         </f:content>
 
         <!-- DynamicPage Footer -->

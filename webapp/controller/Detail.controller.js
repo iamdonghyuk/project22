@@ -51,52 +51,74 @@ sap.ui.define(
           return;
         }
         const oView = this.getView();
-        console.log("뷰 이름:", oView.getId());
 
-        // 아이템 데이터를 OData로 읽어서 JSONModel(poItemList)에 세팅
-        //   oDataModel.read("/ZDCT_MM091Set", {
-        //     filters: [new Filter("PoId", FilterOperator.EQ, sPoId)],
-        //     success: function (oData) {
-        //       var oJsonModel = new JSONModel();
-        //       oJsonModel.setData({ ZDCT_MM091Set: oData.results });
-        //       oView.setModel(oJsonModel, "poItemModel");
-        //     },
-        //     error: function () {
-        //       MessageToast.show("구매오더 아이템 조회 실패");
-        //     },
-        //   }
-        // );
+        // 구매오더 아이템 목록 조회
         oDataModel.read("/ZDCT_MM091Set", {
           filters: [new Filter("PoId", FilterOperator.EQ, sPoId)],
-          success: function (oData) {
+          success: (oData) => {
             const aPoItems = oData.results;
 
-            // 1. 자재 정보도 조회
+            // Step 1: 자재, 구매조직, 구매그룹 병렬 조회
+            const fnAfterAllRead = () => {
+              aPoItems.forEach((item) => {
+                const oFoundMat = aMatList.find(
+                  (mat) => mat.MatId === item.MatId
+                );
+                const oFoundOrg = aOrgList.find(
+                  (org) => org.PurOrgId === item.PurOrgId
+                );
+                const oFoundGrp = aGrpList.find(
+                  (grp) => grp.PurGrpId === item.PurGrpId
+                );
+
+                item.MatNm = oFoundMat ? oFoundMat.MatNm : "";
+                item.PurOrgNm = oFoundOrg ? oFoundOrg.PurOrgNm : "";
+                item.PurGrpNm = oFoundGrp ? oFoundGrp.PurGrpNm : "";
+
+                console.log("  PoId      :", item.PoId);
+                console.log("  MatId     :", item.MatId, "→", item.MatNm);
+                console.log("  PurOrgId  :", item.PurOrgId, "→", item.PurOrgNm);
+                console.log("  PurGrpId  :", item.PurGrpId, "→", item.PurGrpNm);
+              });
+
+              const oListModel = new JSONModel({ ZDCT_MM091Set: aPoItems });
+              oView.setModel(oListModel, "poItemModel");
+
+              const oSingleModel = new JSONModel(aPoItems[0]);
+              oView.setModel(oSingleModel, "poItemList");
+            };
+
+            // Step 2: 각각 읽어오기
+            let aMatList = [],
+              aOrgList = [],
+              aGrpList = [];
+
             oDataModel.read("/ZDCT_MM010Set", {
-              success: function (oMatData) {
-                const aMatList = oMatData.results;
+              success: (oMatData) => {
+                aMatList = oMatData.results;
+                // console.table(aMatList);
 
-                // 2. 자재명을 PoItem에 붙이기
-                aPoItems.forEach((item) => {
-                  const oFoundMat = aMatList.find(
-                    (mat) => mat.MatId === item.MatId
-                  );
-                  item.MatNm = oFoundMat ? oFoundMat.MatNm : "";
+                oDataModel.read("/ZDCT_MM030Set", {
+                  success: (oOrgData) => {
+                    aOrgList = oOrgData.results;
+                    // console.table(aOrgList);
+
+                    oDataModel.read("/ZDCT_MM040Set", {
+                      success: (oGrpData) => {
+                        aGrpList = oGrpData.results;
+                        // console.table(aGrpList);
+                        fnAfterAllRead(); // 모든 데이터 로딩 후 병합 처리
+                      },
+                      error: () => MessageToast.show("구매그룹 정보 조회 실패"),
+                    });
+                  },
+                  error: () => MessageToast.show("구매조직 정보 조회 실패"),
                 });
-
-                // 3. JSONModel로 세팅
-                const oJsonModel = new JSONModel();
-                oJsonModel.setData({ ZDCT_MM091Set: aPoItems });
-                oView.setModel(oJsonModel, "poItemModel");
               },
-              error: function () {
-                MessageToast.show("자재 정보 조회 실패");
-              },
+              error: () => MessageToast.show("자재 정보 조회 실패"),
             });
           },
-          error: function () {
-            MessageToast.show("구매오더 아이템 조회 실패");
-          },
+          error: () => MessageToast.show("구매오더 아이템 조회 실패"),
         });
       },
 
