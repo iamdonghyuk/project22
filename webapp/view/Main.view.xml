@@ -1,0 +1,139 @@
+<mvc:View controllerName="sync.dc.mm.project22.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+
+    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Products ({products>/ProductCollectionStats/Counts/Total})"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Content -->
+        <f:content>
+        <VBox class="sapUiSmallMargin">
+            <Image src="images/Auro_colors_lacquer1.png" width="300px" 
+            alt="Auro Lacquer Image" class="sapUiSmallMarginBottom" />
+            
+            <Table id="poHeaderTable" mode="SingleSelectMaster" 
+            itemPress="onListItemPress" inset="false" items="{poListModel>/ZDCT_MM090Set}" 
+            class="sapFDynamicPageAlignContent" width="auto">
+                <headerToolbar>
+                    <OverflowToolbar height="50%">
+                        <Panel headerText="조회 조건" class="sapUiSmallMarginBottom">
+                            <HBox alignItems="End" wrap="Wrap" class="sapUiSmallMargin">
+                                <!-- 공급업체 ID -->
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="공급업체 ID" />
+                                    <Input id = "VendId" width="200px" editable="true"/>
+                                </VBox>
+
+                                <!-- 공급업체 이름 -->
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="공급업체 이름" />
+                                    <Input id = "VendNm" width="200px"  />
+                                </VBox>
+
+                                <!-- 구매오더 번호 -->
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="구매오더 번호" />
+                                    <Input id = "PoId" width="200px" />
+                                </VBox>
+                                
+                                <!-- 구매오더 생성일 -->
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="구매오더 생성" />
+                                    <DatePicker id = "PoDateS" width="200px" />
+                                </VBox>
+                                <Label text="to " />
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text="" />
+                                    <DatePicker id = "PoDateE" width="200px" />
+                                </VBox>
+
+                                <!-- Spacer -->
+                                <ToolbarSpacer />
+
+                                <!-- 조회 버튼 -->
+                                <VBox class="sapUiTinyMarginEnd">
+                                    <Label text=" " />
+                                    <!-- 라벨 정렬 맞추기용 빈 텍스트 -->
+                                    <Button text="조회" type="Emphasized" press="onSearch" />
+                                </VBox>
+
+                                <!-- 정렬 버튼 -->
+                                <VBox>
+                                    <Label text=" " />
+                                    <Button icon="sap-icon://sort" type="Transparent" press="onSort" />
+                                </VBox>
+                            </HBox>
+                        </Panel>
+
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="구매오더 번호" />
+                    </Column>
+                    <Column>
+                        <Text text="구매문서 유형" />
+                    </Column>
+                    <Column>
+                        <Text text="회사코드" />
+                    </Column>
+                    <Column>
+                        <Text text="공급업체 코드" />
+                    </Column>
+                    <Column>
+                        <Text text="공급업체 이름" />
+                    </Column>
+                    <Column>
+                        <Text text="구매조직 코드" />
+                    </Column>
+                    <Column>
+                        <Text text="구매그룹 코드" />
+                    </Column>
+                    <Column>
+                        <Text text="구매오더 생성일" />
+                    </Column>
+                    <Column>
+                        <Text text="통화" />
+                    </Column>
+                    <Column>
+                        <Text text="입고 상태" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <Text text="{poListModel>PoId}" />
+                            <Text text="{poListModel>PoTy}" />
+                            <Text text="{poListModel>CompCode}" />
+                            <Text text="{poListModel>VendId}" />
+                            <Text text="{poListModel>VendNm}" />
+                            <Text text="{poListModel>PurOrgId}" />
+                            <Text text="{poListModel>PurGrpId}" />
+                            <Text text="{poListModel>PoDate}" />
+                            <Text text="{poListModel>Currency}" />
+                            <Text text="{poListModel>GrStatus}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            </VBox>
+        </f:content>
+
+        <!-- DynamicPage Footer -->
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button type="Accept" text="Accept"/>
+                <Button type="Reject" text="Reject"/>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,157 @@
+{
+    "_version": "1.60.0",
+    "sap.app": {
+        "id": "sync.dc.mm.project22",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.16.5",
+            "toolsId": "b3717ded-10a6-4cfc-bdbd-1c86f0ed7f17"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZDCMM_GW_002_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/mainService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "sync.dc.mm.project22.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "sync.dc.mm.project22.view",
+                "async": true,
+                "viewPath": "sync.dc.mm.project22.view"
+            },
+            "routes": [
+                {
+                    "name": "RouteMain",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMain"
+                    ]
+                },
+                {
+					"pattern": "page2",
+					"name": "page2",
+					"target": "page2",
+					"layout": "EndColumnFullScreen"
+				},
+				{
+					"pattern": ":layout:",
+					"name": "list",
+					"target": [
+						"list"
+					]
+				},
+				{
+					"pattern": "detail/{PoId}/{PurOrgId}/{PurGrpId}",
+                    "name": "detail",
+					"target": "detail"
+				},
+				{
+					"pattern": "detailDetail/{product}/{supplier}/{layout}",
+					"name": "detailDetail",
+					"target": [
+						"list",
+						"detail",
+						"detailDetail"
+					]
+				}
+            ],
+            "targets": {
+                "TargetMain": {
+                    "id": "Main",
+                    "name": "Main"
+                },
+                "list": {
+					"name": "List",
+					"controlAggregation": "beginColumnPages"
+				},
+				"detail": {
+                    "viewType": "XML",
+                    "viewId": "Detail",
+					"viewName": "Detail"
+				},
+				"detailDetail": {
+					"name": "DetailDetail",
+					"controlAggregation": "endColumnPages"
+				},
+				"page2": {
+					"name": "AboutPage",
+					"controlAggregation": "endColumnPages"
+				}
+            }
+        },
+        "rootView": {
+            "viewName": "sync.dc.mm.project22.view.App",
+            "type": "XML",
+            "id": "App"
+        }
+    }
+}

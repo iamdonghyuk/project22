@@ -1,0 +1,168 @@
+<mvc:View displayBlock="true" controllerName="sync.dc.mm.project22.controller.Detail" height="100%"
+	xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:viz="sap.viz.ui5.controls"
+xmlns:vizFeeder="sap.viz.ui5.controls.common.feeds"	
+>
+
+	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" 
+		preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="{poItemList>Name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:HBox wrap="NoWrap" alignItems="Center" class="sapUiTinyMarginEnd">
+						<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="S" displayShape="Square" class="sapUiTinyMarginEnd"/>
+						<m:VBox wrap="Wrap">
+							<m:Title text="{poItemList>Name}" wrapping="true" />
+							<m:Label text="{poItemList>ProductId}" wrapping="true" />
+						</m:VBox>
+					</m:HBox>
+				</snappedHeading>
+
+				<navigationActions>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+				</navigationActions>
+
+				<actions>
+					<m:Button text="Edit" type="Emphasized" press="toggleAreaPriority"/>
+					<m:Button text="Delete" type="Transparent"/>
+					<m:Button text="Copy" type="Transparent"/>
+					<m:Button text="Toggle Footer" type="Transparent" press="onToggleFooter"/>
+					<m:Button icon="sap-icon://action" type="Transparent"/>
+				</actions>
+
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<headerContent>
+			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+				<m:Avatar src="../../../../../../../{poItemList>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd" />
+				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Main Category"/>
+					<m:Text text="{poItemList>MainCategory}"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Subcategory"/>
+					<m:Text text="{poItemList>Category}"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<m:Label text="Price"/>
+					<m:ObjectNumber number="{poItemList>CurrencyCode} {poItemList>Price}" emphasized="false"/>
+				</m:VBox>
+			</m:FlexBox>
+		</headerContent>
+
+		<sections>
+			<ObjectPageSection title="구매오더 기본 정보">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+							editable="false"
+							layout="ResponsiveGridLayout"
+							labelSpanL="3"
+							labelSpanM="3"
+							emptySpanL="1"
+							emptySpanM="1"
+							columnsL="1"
+							columnsM="1"
+							>	<form:content>
+								<m:Label text="구매오더 ID" labelFor="poId" />
+								<m:Text id="poId" text="{poItemList>/PoId}" />
+
+								<m:Label text="구매 조직 이름" labelFor="orgNm" />
+								<m:Text id="orgNm" text="{poItemList>/PurOrgNm}" />
+
+								<m:Label text="구매 그룹 이름" labelFor="grpNm" />
+								<m:Text id="grpNm" text="{poItemList>/PurGrpNm}" />
+							</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="구매오더 품목">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:Table id="purchaseOrderTable" items="{poItemModel>/ZDCT_MM091Set}">
+								<m:columns>
+									<m:Column><m:Text text="자재코드"/></m:Column>
+									<m:Column><m:Text text="자재이름"/></m:Column>
+									<m:Column><m:Text text="플랜트ID"/></m:Column>
+									<m:Column><m:Text text="수량"/></m:Column>
+									<m:Column><m:Text text="단위"/></m:Column>
+									<m:Column><m:Text text="단가"/></m:Column>
+									<m:Column><m:Text text="단가 기준 수량"/></m:Column>
+									<m:Column><m:Text text="납기요청일"/></m:Column>
+								</m:columns>
+								<m:items>
+									<m:ColumnListItem>
+										<m:cells>
+											<m:Text text="{poItemModel>MatId}" />
+											<m:Text text="{poItemModel>MatNm}" />
+											<m:Text text="{poItemModel>PlantId}" />
+											<m:Text text="{poItemModel>Qty}" />
+											<m:Text text="{poItemModel>OrderUnit}" />
+											<m:Text text="{poItemModel>NetPrice}" />
+											<m:Text text="{poItemModel>PriceBaseQty}" />
+											<m:Text text="{poItemModel>DelivDate}" />
+										</m:cells>
+									</m:ColumnListItem>
+								</m:items>
+							</m:Table>
+						</blocks>
+					</ObjectPageSubSection>
+					
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="자재별 수량 차트">
+  <subSections>
+    <ObjectPageSubSection>
+      <blocks>
+        <viz:VizFrame
+          id="materialQtyChart"
+          uiConfig="{applicationSet:'fiori'}"
+          width="100%"
+          height="400px"
+          vizType="column">
+          <viz:dataset>
+            <sap.viz.ui5.data:FlattenedDataset
+              xmlns:sap.viz.ui5.data="sap.viz.ui5.data"
+              data="{poItemModel>/ZDCT_MM091Set}">
+              <sap.viz.ui5.data:dimensions>
+                <sap.viz.ui5.data:DimensionDefinition
+                  name="자재코드"
+                  value="{poItemModel>MatNm}" />
+              </sap.viz.ui5.data:dimensions>
+              <sap.viz.ui5.data:measures>
+                <sap.viz.ui5.data:MeasureDefinition
+                  name="수량"
+                  value="{poItemModel>Qty}" />
+              </sap.viz.ui5.data:measures>
+
+            </sap.viz.ui5.data:FlattenedDataset>
+          </viz:dataset>
+
+          <viz:feeds>
+            <vizFeeder:FeedItem uid="valueAxis" type="Measure" values="수량"/>
+            <vizFeeder:FeedItem uid="categoryAxis" type="Dimension" values="자재코드"/>
+          </viz:feeds>
+        </viz:VizFrame>
+      </blocks>
+    </ObjectPageSubSection>
+  </subSections>
+</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>
